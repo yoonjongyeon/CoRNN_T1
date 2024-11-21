@@ -1,5 +1,5 @@
 Bootstrap: docker   # Generate singularity container based on Docker image
-From: ubuntu:22.04  # Image based on Ubuntu 18,04 image
+From: ubuntu:18.04  # Image based on Ubuntu 18,04 image
 
 # %post is implemented when container is created
 %post -c /bin/bash
@@ -93,9 +93,8 @@ From: ubuntu:22.04  # Image based on Ubuntu 18,04 image
     # Install source code
     cd /
     apt-get -y install git gcc libpq-dev python-dev python-pip python3.8 python3.8-dev python3-pip python3.8-venv python3-wheel
-    git clone https://github.com/MASILab/cornn_tractography.git
-    cd cornn_tractography
-    git checkout v1.0.0
+    mkdir -p /apps/CoRNN_T1
+    cp -r /home/jongyeon/CoRNN_T1 /apps/CoRNN_T1
     python3.8 -m venv venv
     source venv/bin/activate
     python3 --version
@@ -132,5 +131,5 @@ From: ubuntu:22.04  # Image based on Ubuntu 18,04 image
 
 %runscript
 
-    xvfb-run -a --server-num=$((65536+$$)) --server-args="-screen 0 1600x1280x24 -ac" bash /cornn_tractography/src/generate.sh "$@"
+    xvfb-run -a --server-num=$((65536+$$)) --server-args="-screen 0 1600x1280x24 -ac" bash /CoRNN_T1/src/generate.sh "$@"
     

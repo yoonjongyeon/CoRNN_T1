@@ -19,8 +19,13 @@ From: ubuntu:18.04  # Image based on Ubuntu 18,04 image
     # Install ghostscript for pdf management
     apt-get -y install ghostscript
 
+    # Install Python 3.8 and set it as default
+    apt-get -y install python3.8 python3.8-venv python3-pip
+    ln -sf /usr/bin/python3.8 /usr/bin/python
+    ln -sf /usr/bin/python3.8 /usr/bin/python3
+
     # Install MRTrix3
-    apt-get -y install git g++ python python-numpy libeigen3-dev zlib1g-dev libqt4-opengl-dev libgl1-mesa-dev libfftw3-dev libtiff5-dev python3-distutils
+    apt-get -y install git g++ python3-numpy libeigen3-dev zlib1g-dev libqt4-opengl-dev libgl1-mesa-dev libfftw3-dev libtiff5-dev python3-distutils
     cd /apps
     git clone https://github.com/MRtrix3/mrtrix3.git
     cd mrtrix3
@@ -31,7 +36,7 @@ From: ubuntu:18.04  # Image based on Ubuntu 18,04 image
 
     # Install FSL
     apt-get -y install python wget ca-certificates libglu1-mesa libgl1-mesa-glx libsm6 libice6 libxt6 libpng16-16 libxrender1 libxcursor1 libxinerama1 libfreetype6 libxft2 libxrandr2 libgtk2.0-0 libpulse0 libasound2 libcaca0 libopenblas-base bzip2 dc bc 
-    wget -O /installers/fslinstaller.py "https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py"
+    wget -O /installers/fslinstaller.py "https://fsl.fmrib.ox.ac.uk/fsldownloadas/fslinstaller.py"
     cd /installers
     python fslinstaller.py -d /apps/fsl -V 6.0.6
     cd /
@@ -94,7 +99,7 @@ From: ubuntu:18.04  # Image based on Ubuntu 18,04 image
     cd /
     apt-get -y install git gcc libpq-dev python-dev python-pip python3.8 python3.8-dev python3-pip python3.8-venv python3-wheel
     git clone https://github.com/yoonjongyeon/CoRNN_T1.git
-    cd CoRNN_T1
+    cd CoRNN_T1
     # Add Tags and checkout in near future
     python3.9 -m venv venv
     source venv/bin/activate

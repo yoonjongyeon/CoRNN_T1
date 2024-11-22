@@ -72,8 +72,8 @@ From: ubuntu:18.04  # Image based on Ubuntu 18,04 image
     git clone https://github.com/scilus/scilpy.git
     cd scilpy
     git checkout 1.6.0
-    python3.8 --version
-    python3.8 -m venv venv
+    python3.9 --version
+    python3.9 -m venv venv
     source venv/bin/activate
     pip3 install wheel
     pip install --upgrade pip
@@ -96,7 +96,7 @@ From: ubuntu:18.04  # Image based on Ubuntu 18,04 image
     git clone https://github.com/yoonjongyeon/CoRNN_T1.git
     cd CoRNN_T1
     # Add Tags and checkout in near future
-    python3.8 -m venv venv
+    python3.9 -m venv venv
     source venv/bin/activate
     python3 --version
     pip3 install wheel

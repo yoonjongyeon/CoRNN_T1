@@ -71,7 +71,7 @@ From: ubuntu:18.04  # Image based on Ubuntu 18,04 image
     cd /apps
     git clone https://github.com/scilus/scilpy.git
     cd scilpy
-    git checkout 1.4.1
+    git checkout 1.6.0
     python3.8 --version
     python3.8 -m venv venv
     source venv/bin/activate

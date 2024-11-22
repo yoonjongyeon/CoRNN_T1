@@ -97,7 +97,7 @@ From: ubuntu:18.04  # Image based on Ubuntu 18,04 image
     
     # Install source code
     cd /
-    apt-get -y install git gcc libpq-dev python-dev python-pip python3.8 python3.8-dev python3-pip python3.8-venv python3-wheel
+    apt-get -y install git gcc libpq-dev python3-dev python3-pip python3.8 python3.8-dev python3-pip python3.8-venv python3-wheel
     git clone https://github.com/yoonjongyeon/CoRNN_T1.git
     cd CoRNN_T1
     # Add Tags and checkout in near future

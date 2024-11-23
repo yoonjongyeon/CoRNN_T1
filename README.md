@@ -1,10 +1,17 @@
 # CoRNN T1 Tractography
 Tractography on T1-weighted MRI without diffusion MRI.
 
+
 ## Overview
 
 This work is reproduced version of the research conducted by Leon Y. Cai's [CoRNN Tractography](https://github.com/MASILab/cornn_tractography).  
 In this version, the model is trained with more train data and used recent version of the packages.
+
+
+## Authors and Reference
+
+[Leon Y. Cai](mailto:leon.y.cai@vanderbilt.edu), Ho Hin Lee, Nancy R. Newlin, Cailey I. Kerley, Praitayini Kanakaraj, Qi Yang, Graham W. Johnson, Daniel Moyer, Kurt G. Schilling, Francois Rheault, and Bennett A. Landman. [Convolutional-recurrent neural networks approximate diffusion tractography from T1-weighted MRI and associated anatomical context](https://www.biorxiv.org/content/10.1101/2023.02.25.530046v1). Proceedings of Machine Learning Reseach. In press. 2023.
+
 
 ## Containerization of Source Code
 

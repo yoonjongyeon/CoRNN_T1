@@ -3,7 +3,7 @@ Tractography on T1-weighted MRI without diffusion MRI.
 
 ## Overview
 
-This work is reproduced version of the research conducted by Leon Y. Cai's [CoRNN Tractography](https://github.com/MASILab/cornn_tractography).
+This work is reproduced version of the research conducted by Leon Y. Cai's [CoRNN Tractography](https://github.com/MASILab/cornn_tractography).  
 In this version, the model is trained with more train data and used recent version of the packages.
 
 ## Containerization of Source Code

@@ -5,7 +5,7 @@ Tractography on T1-weighted MRI without diffusion MRI.
 ## Overview
 
 This work is reproduced version of the research conducted by Leon Y. Cai's [CoRNN Tractography](https://github.com/MASILab/cornn_tractography).  
-In this version, the model is trained with more train data and used recent version of the packages.
+In this version, the model is trained with more data and used recent version of the packages.
 
 
 ## Authors and Reference
@@ -19,7 +19,11 @@ In this version, the model is trained with more train data and used recent versi
     cd /path/to/repo/CoRNN_T1
     sudo singularity build /path/to/CoRNN_T1.sif Singularity
 
-  Alternatively, a pre-built container can be downloaded [here](https://masi.vuse.vanderbilt.edu/CoRNN/CoRNN_v1.0.0.sif).
+  Alternatively, a pre-built container can be downloaded [here](https://vanderbilt365-my.sharepoint.com/:f:/g/personal/jongyeon_yoon_vanderbilt_edu/Ei9uIkXI1DJKg38b6trXVhUBhtWTsiHHr6RY7NWrZ0qezw?e=rnIiaa).
+
+
+## Preparation
+Before running a container, output from [SLANT](https://github.com/MASILab/SLANTbrainSeg) and [WM learning (WML)](https://github.com/MASILab/WM_learning_release) TractSeg segmentations are needed.
 
 
 ## Command

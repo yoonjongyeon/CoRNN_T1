@@ -4,7 +4,7 @@
 # - T1.nii.gz
 
 in_dir=$1
-slant_dir=$2
+slant_file=$2
 wml_dir=$3
 num_threads=$4
 
@@ -21,7 +21,7 @@ src_dir=$CORNN_DIR/src
 # - T1_mask.nii.gz
 
 echo "prep_T1.sh: Computing T1 mask..."
-cmd="fslmaths $slant_dir/FinalResult/T1_seg.nii.gz -div $slant_dir/FinalResult/T1_seg.nii.gz -fillh $in_dir/T1_mask.nii.gz -odt int"
+cmd="fslmaths $slant_file -div $slant_file -fillh $in_dir/T1_mask.nii.gz -odt int"
 [ ! -f $in_dir/T1_mask.nii.gz ] && (echo $cmd && eval $cmd) || echo "prep_T1.sh: Output exists, skipping!"
 
 # Bias correction
@@ -77,7 +77,7 @@ cmd="antsApplyTransforms -d 3 -e 3 -r $supp_dir/mni_icbm152_t1_tal_nlin_asym_09c
 # - T1_slant_mni_2mm.nii.gz
 
 echo "prep_T1.sh: Preparing SLANT..."
-cmd="python3 $src_dir/prep_slant.py $slant_dir/FinalResult/T1_seg.nii.gz $in_dir/T1_slant.nii.gz"
+cmd="python3 $src_dir/prep_slant.py $slant_file $in_dir/T1_slant.nii.gz"
 [ ! -f $in_dir/T1_slant.nii.gz ] && (echo $cmd && eval $cmd) || echo "prep_T1.sh: SLANT grouped, skipping!"
 cmd="antsApplyTransforms -d 3 -e 3 -r $supp_dir/mni_icbm152_t1_tal_nlin_asym_09c_2mm.nii.gz -i $in_dir/T1_slant.nii.gz  -t $in_dir/T12mni_0GenericAffine.mat -o $in_dir/T1_slant_mni_2mm.nii.gz -n NearestNeighbor"
 [ ! -f $in_dir/T1_slant_mni_2mm.nii.gz ] && (echo $cmd && eval $cmd) || echo "prep_T1.sh: SLANT transformed, skipping!"

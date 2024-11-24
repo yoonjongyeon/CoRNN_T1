@@ -245,7 +245,7 @@ if __name__ == '__main__':
     parser.add_argument('t1_file', metavar='/in/file.nii.gz', help='path to the input NIFTI T1w MRI file')
     parser.add_argument('out_file', metavar='/out/file.trk', help='path to the output tractogram file (trk, tck, vtk, fib, or dpy)')
 
-    parser.add_argument('--slant', metavar='/slant/dir', default=None, help='path to the SLANT output directory (required)')
+    parser.add_argument('--slant_file', metavar='/slant/dir/file.nii.gz', default=None, help='path to the SLANT output file (required)')
     parser.add_argument('--wml', metavar='/wml/dir', default=None, help='path to the WML TractSeg output directory (required)')
 
     parser.add_argument('--device', metavar='cuda/cpu', default='cpu', help='string indicating device on which to perform tracking (default = "cpu")')
@@ -282,9 +282,9 @@ if __name__ == '__main__':
         assert not os.path.exists(out_file), 'Output file {} already exists (use --force to overwrite). Aborting.'.format(out_file)
     echo('Output file:\t\t{}'.format(out_file))
     
-    slant_dir = str(args.slant)
-    assert os.path.exists(slant_dir), 'SLANT directory {} does not exist. Aborting.'.format(slant_dir)
-    echo('SLANT directory:\t\t{}'.format(slant_dir))
+    slant_file = args.slant_file
+    assert os.path.exists(args.slant_file), 'Input slant_file {} does not exist. Aborting.'.format(t1_file)
+    echo('Slant file:\t\t{}'.format(slant_file))
     wml_dir = str(args.wml)
     assert os.path.exists(wml_dir), 'WML TractSeg directory {} does not exist. Aborting.'.format(wml_dir)
     echo('WML directory:\t\t{}'.format(wml_dir))
@@ -344,7 +344,7 @@ if __name__ == '__main__':
 
 
     echo('<<<< Preparing T1w MRI >>>>')
-    t1_cmd = 'source {}/bin/activate ; bash {} {} {} {} {}'.format(VENV_DIR, os.path.join(SRC_DIR, 'prep_T1.sh'), work_dir, slant_dir, wml_dir, num_threads)
+    t1_cmd = 'source {}/bin/activate ; bash {} {} {} {} {}'.format(VENV_DIR, os.path.join(SRC_DIR, 'prep_T1.sh'), work_dir, slant_file, wml_dir, num_threads)
     run(t1_cmd)
 
     
@@ -500,12 +500,12 @@ if __name__ == '__main__':
     
     echo('<<<< Post-processing and moving out of working directory >>>>')
     if not os.path.exists(out_file) or force:
-        out_cmd = 'source {}/venv/bin/activate ; scil_apply_transform_to_tractogram.py {} {} {} {} --remove_invalid {}'.format(SCIL_DIR,
-                                                                                                                               os.path.join(work_dir, 'inference_mni_2mm.trk'), 
-                                                                                                                               os.path.join(work_dir, 'T1_N4.nii.gz'), 
-                                                                                                                               os.path.join(work_dir, 'T12mni_0GenericAffine.mat'), 
-                                                                                                                               out_file,
-                                                                                                                               '-f' if force else '') # no --inverse needed per ANTs convention
+        out_cmd = 'source {}/bin/activate ; scil_tractogram_apply_transform.py {} {} {} {} --remove_invalid {}'.format(VENV_DIR,
+                                                                                                                       os.path.join(work_dir, 'inference_mni_2mm.trk'),
+                                                                                                                       os.path.join(work_dir, 'T1_N4.nii.gz'),
+                                                                                                                       os.path.join(work_dir, 'T12mni_0GenericAffine.mat'),
+                                                                                                                       out_file,
+                                                                                                                       '-f' if force else '') # no --inverse needed per ANTs convention
         run(out_cmd)
     else:
         echo('Post-processing already done, skipping...')

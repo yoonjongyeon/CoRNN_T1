@@ -1,5 +1,5 @@
 Bootstrap: docker   # Generate singularity container based on Docker image
-From: ubuntu:18.04  # Image based on Ubuntu 18,04 image
+From: ubuntu:22.04  # ubuntu:22.04
 
 # %post is implemented when container is created
 %post -c /bin/bash
@@ -10,6 +10,9 @@ From: ubuntu:18.04  # Image based on Ubuntu 18,04 image
     mkdir -p apps       # -p: no error even parent directoty does not exists or directory already exists
     mkdir -p installers
 
+    # Set Permissions
+    chmod 755 /apps
+
     # Update all libraries
     apt-get -y update
 
@@ -19,24 +22,38 @@ From: ubuntu:18.04  # Image based on Ubuntu 18,04 image
     # Install ghostscript for pdf management
     apt-get -y install ghostscript
 
-    # Install Python 3.8 and set it as default
-    apt-get -y install python3.8 python3.8-venv python3-pip
-    ln -sf /usr/bin/python3.8 /usr/bin/python
-    ln -sf /usr/bin/python3.8 /usr/bin/python3
+    apt-get -y install python3 python3-venv python3-pip
+    ln -sf /usr/bin/python3 /usr/bin/python
+
+    # Install source code
+    cd /
+    apt-get -y install git gcc libpq-dev python3-dev python3-pip python3 python3-dev python3-venv python3-wheel
+    git clone https://github.com/yoonjongyeon/CoRNN_T1.git
+    cd CoRNN_T1
+    # Add Tags and checkout in near future
+    python3 -m venv /CoRNN_T1/venv
+    source /CoRNN_T1/venv/bin/activate
+    python3 --version
+    pip3 install wheel
+    pip install --upgrade pip
+    pip install --upgrade setuptools
+    bash install/pip.sh
+    deactivate
+    cd /
 
     # Install MRTrix3
-    apt-get -y install git g++ python3-numpy libeigen3-dev zlib1g-dev libqt4-opengl-dev libgl1-mesa-dev libfftw3-dev libtiff5-dev python3-distutils
+    apt-get -y install git g++ python3-numpy libeigen3-dev zlib1g-dev libqt5opengl5-dev libgl1-mesa-dev libfftw3-dev libtiff5-dev python3-distutils libqt5svg5-dev
     cd /apps
     git clone https://github.com/MRtrix3/mrtrix3.git
     cd mrtrix3
-    git checkout 3.0.3
+    git checkout 3.0.4
     ./configure
     ./build
     cd /
 
     # Install FSL
-    apt-get -y install python wget ca-certificates libglu1-mesa libgl1-mesa-glx libsm6 libice6 libxt6 libpng16-16 libxrender1 libxcursor1 libxinerama1 libfreetype6 libxft2 libxrandr2 libgtk2.0-0 libpulse0 libasound2 libcaca0 libopenblas-base bzip2 dc bc 
-    wget -O /installers/fslinstaller.py "https://fsl.fmrib.ox.ac.uk/fsldownloadas/fslinstaller.py"
+    apt-get -y install python3 wget ca-certificates libglu1-mesa libgl1-mesa-glx libsm6 libice6 libxt6 libpng-dev libxrender1 libxcursor1 libxinerama1 libfreetype6 libxft2 libxrandr2 libgtk-3-dev libpulse0 libasound2 libcaca0 libopenblas-base bzip2 dc bc
+    wget -O /installers/fslinstaller.py "https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py"
     cd /installers
     python fslinstaller.py -d /apps/fsl -V 6.0.6
     cd /
@@ -60,7 +77,6 @@ From: ubuntu:18.04  # Image based on Ubuntu 18,04 image
     mkdir ants_installer
     cd ants_installer
     git clone https://github.com/ANTsX/ANTs.git
-    git checkout efa80e3f582d78733724c29847b18f3311a66b54
     mkdir ants_build
     cd ants_build
     cmake /installers/ants_installer/ANTs -DCMAKE_INSTALL_PREFIX=/apps/ants
@@ -70,20 +86,17 @@ From: ubuntu:18.04  # Image based on Ubuntu 18,04 image
     cd /
     
     # SCILPY
-    apt-get -y install git gcc libpq-dev python-dev python-pip python3.8 python3.8-dev python3-pip python3.8-venv python3-wheel
-    apt-get -y install libblas-dev liblapack-dev libfreetype6-dev pkg-config 
-    apt-get -y install libglu1-mesa libgl1-mesa-glx libxrender1
+    apt-get -y install git gcc libpq-dev python3 python3-dev python3-pip python3-venv python3-wheel python3-distutils
+    apt-get -y install libblas-dev liblapack-dev libfreetype6-dev pkg-config
+    apt-get -y install libglu1-mesa libgl1-mesa-glx libxrender1 gfortran
     cd /apps
     git clone https://github.com/scilus/scilpy.git
     cd scilpy
     git checkout 2.0.0
-    python3.9 --version
-    python3.9 -m venv venv
-    source venv/bin/activate
-    pip3 install wheel
-    pip install --upgrade pip
-    pip install --upgrade setuptools
-    export SKLEARN_ALLOW_DEPRECATED_SKLEARN_PACKAGE_INSTALL=True
+    python3 --version
+    source /CoRNN_T1/venv/bin/activate
+    pip install --upgrade pip setuptools wheel cython
+    export SETUPTOOLS_USE_DISTUTILS=stdlib
     pip install -e .
     deactivate
     cd /
@@ -92,24 +105,7 @@ From: ubuntu:18.04  # Image based on Ubuntu 18,04 image
     mkdir -p data
 
     # Set Permissions
-    chmod 755 /apps
     chmod 755 /data
-    
-    # Install source code
-    cd /
-    apt-get -y install git gcc libpq-dev python3-dev python3-pip python3.8 python3.8-dev python3-pip python3.8-venv python3-wheel
-    git clone https://github.com/yoonjongyeon/CoRNN_T1.git
-    cd CoRNN_T1
-    # Add Tags and checkout in near future
-    python3.9 -m venv venv
-    source venv/bin/activate
-    python3 --version
-    pip3 install wheel
-    pip install --upgrade pip
-    pip install --upgrade setuptools
-    bash install/pip.sh
-    deactivate
-    cd /
 
     # Clean up
     rm -r /installers

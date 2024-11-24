@@ -31,9 +31,9 @@ Before running a container, output from [SLANT](https://github.com/MASILab/SLANT
     singularity run 
     -e 
     --contain
-    -B <t1_file>:/data/T1.nii.gz
     -B <out_dir>:/data
-    -B <slant_dir>:/data/slant
+    -B <t1_file>:/data/T1.nii.gz
+    -B <slant_file>:/data/slant/T1_slant.nii.gz
     -B <wml_dir>:/data/wml
     -B /tmp:/tmp
     --nv
@@ -55,7 +55,7 @@ Before running a container, output from [SLANT](https://github.com/MASILab/SLANT
 
 * **`<out_name>`** *Name* (i.e., no directory) of the output tractogram with extension in trk, tck, vtk, fib, or dpy format.
 
-* **`<slant_dir>`** Path on the host machine to the SLANT output directory.
+* **`<slant_file>`** Path on the host machine to the SLANT output file.
 
 * **`<wml_dir>`** Path on the host machine to the TractSeg WM Learning output directory.
 

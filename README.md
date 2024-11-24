@@ -23,7 +23,7 @@ In this version, the model is trained with more data and used recent version of 
 
 
 ## Preparation
-Before running a container, output from [SLANT](https://github.com/MASILab/SLANTbrainSeg) and [WM learning (WML)](https://github.com/MASILab/WM_learning_release) TractSeg segmentations are needed.
+Before running a container, output from [SLANT](https://github.com/MASILab/SLANTbrainSeg) and [WM learning (WML)](https://github.com/MASILab/WM_learning_release) TractSeg segmentations are essential.
 
 
 ## Command

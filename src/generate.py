@@ -26,8 +26,6 @@ MODEL_DIR = os.path.join(CORNN_DIR, 'model')
 SRC_DIR   = os.path.join(CORNN_DIR, 'src')
 VENV_DIR  = os.path.join(CORNN_DIR, 'venv')
 
-SCIL_DIR  = os.getenv('SCIL_DIR')
-
 # Helper Functions
 
 def tri2act(curr_trid, curr_trii, curr_step, prev_trid, prev_trii, prev_step, step, max_steps, act_img, mask_img, tissue_thres=0.5, angle=60, ignore_angle=False):
@@ -500,12 +498,11 @@ if __name__ == '__main__':
     
     echo('<<<< Post-processing and moving out of working directory >>>>')
     if not os.path.exists(out_file) or force:
-        out_cmd = 'source {}/bin/activate ; scil_tractogram_apply_transform.py {} {} {} {} --remove_invalid {}'.format(VENV_DIR,
-                                                                                                                       os.path.join(work_dir, 'inference_mni_2mm.trk'),
-                                                                                                                       os.path.join(work_dir, 'T1_N4.nii.gz'),
-                                                                                                                       os.path.join(work_dir, 'T12mni_0GenericAffine.mat'),
-                                                                                                                       out_file,
-                                                                                                                       '-f' if force else '') # no --inverse needed per ANTs convention
+        out_cmd = 'scil_tractogram_apply_transform.py {} {} {} {} --remove_invalid {}'.format(os.path.join(work_dir, 'inference_mni_2mm.trk'),
+                                                                                              os.path.join(work_dir, 'T1_N4.nii.gz'),
+                                                                                              os.path.join(work_dir, 'T12mni_0GenericAffine.mat'),
+                                                                                              out_file,
+                                                                                              '-f' if force else '') # no --inverse needed per ANTs convention
         run(out_cmd)
     else:
         echo('Post-processing already done, skipping...')

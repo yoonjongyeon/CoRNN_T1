@@ -77,7 +77,7 @@ cmd="antsApplyTransforms -d 3 -e 3 -r $supp_dir/mni_icbm152_t1_tal_nlin_asym_09c
 # - T1_slant_mni_2mm.nii.gz
 
 echo "prep_T1.sh: Preparing SLANT..."
-cmd="python $src_dir/prep_slant.py $slant_dir/FinalResult/T1_seg.nii.gz $in_dir/T1_slant.nii.gz"
+cmd="python3 $src_dir/prep_slant.py $slant_dir/FinalResult/T1_seg.nii.gz $in_dir/T1_slant.nii.gz"
 [ ! -f $in_dir/T1_slant.nii.gz ] && (echo $cmd && eval $cmd) || echo "prep_T1.sh: SLANT grouped, skipping!"
 cmd="antsApplyTransforms -d 3 -e 3 -r $supp_dir/mni_icbm152_t1_tal_nlin_asym_09c_2mm.nii.gz -i $in_dir/T1_slant.nii.gz  -t $in_dir/T12mni_0GenericAffine.mat -o $in_dir/T1_slant_mni_2mm.nii.gz -n NearestNeighbor"
 [ ! -f $in_dir/T1_slant_mni_2mm.nii.gz ] && (echo $cmd && eval $cmd) || echo "prep_T1.sh: SLANT transformed, skipping!"

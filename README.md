@@ -19,7 +19,7 @@ In this version, the model is trained with more data and used recent version of 
     cd /path/to/repo/CoRNN_T1_tractography
     sudo singularity build /path/to/CoRNN_T1.sif Singularity
 
-  Alternatively, a pre-built container can be downloaded [here](https://vanderbilt365-my.sharepoint.com/:f:/g/personal/jongyeon_yoon_vanderbilt_edu/Ei9uIkXI1DJKg38b6trXVhUBhtWTsiHHr6RY7NWrZ0qezw?e=rnIiaa).
+  Alternatively, a pre-built container can be downloaded [here](https://vanderbilt.box.com/s/mbqvfqrdg40mpoek5eiipqc3p3f9ez13).
 
 
 ## Preparation

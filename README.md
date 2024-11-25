@@ -15,8 +15,8 @@ In this version, the model is trained with more data and used recent version of 
 
 ## Containerization of Source Code
 
-    git clone https://github.com/yoonjongyeon/CoRNN_T1.git
-    cd /path/to/repo/CoRNN_T1
+    git clone https://github.com/yoonjongyeon/CoRNN_T1_tractography.git
+    cd /path/to/repo/CoRNN_T1_tractography
     sudo singularity build /path/to/CoRNN_T1.sif Singularity
 
   Alternatively, a pre-built container can be downloaded [here](https://vanderbilt365-my.sharepoint.com/:f:/g/personal/jongyeon_yoon_vanderbilt_edu/Ei9uIkXI1DJKg38b6trXVhUBhtWTsiHHr6RY7NWrZ0qezw?e=rnIiaa).
